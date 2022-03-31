@@ -105,8 +105,6 @@ namespace Qurre.Tools
 
         public static List<PlayerEffect> ActiveEffects(this Player player) => player.PlayerEffectsController.AllEffects.Values.Where(effect => effect.Intensity > 0).ToList();
 
-        public static SteamUser Steam(this Player player) => SteamUser.Get(player.RawUserId());
-
         public static void OfflineMute(this string userId) => MuteHandler.IssuePersistentMute(userId);
 
         public static void OfflineMute(this Player player) => OfflineMute(player.UserId);
@@ -116,7 +114,7 @@ namespace Qurre.Tools
             Reason = reason,
             Issuer = issuer,
             Id = id,
-            OriginalName = SteamUser.Get(id).Name,
+            OriginalName = "Unknown - offline ban",
             IssuanceTime = DateTime.Now.ToLocalTime().Ticks,
             Expires = DateTime.UtcNow.AddSeconds(duration).Ticks
         }, BanHandler.BanType.UserId);
